@@ -1,0 +1,6 @@
+1- nodejs hello world.
+2- deployment of image
+3- update of modified image
+4- integrate update into a server running in the background
+5- seperate 2 branch master/qa
+
