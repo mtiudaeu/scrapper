@@ -1,0 +1,11 @@
+sudo docker build .
+sudo docker tag node:latest nodetesttest:latest
+sudo docker rmi node:latest
+sudo docker run -ti nodetesttest bash
+sudo docker run -p 8888:8888 -ti test3 bash      # -p <host-port>:<docker-port>
+sudo docker ps
+sudo docker exec -ti 14ecb064c81d bash
+curl --insecure https://127.0.0.1:8888
+
+
+
