@@ -1,4 +1,5 @@
 sudo docker build .
+sudo docker  build -t test3 .
 sudo docker tag node:latest nodetesttest:latest
 sudo docker rmi node:latest
 sudo docker run -ti nodetesttest bash
@@ -6,6 +7,15 @@ sudo docker run -p 8888:8888 -ti test3 bash      # -p <host-port>:<docker-port>
 sudo docker ps
 sudo docker exec -ti 14ecb064c81d bash
 curl --insecure https://127.0.0.1:8888
+sudo docker run -p 8888:8888 -t test3    #Testing with present docker 2018-09-03. node app start right away
 
+
+
+kubectl create -f node.yml
+kubectl expose deployment test3-deployment --type=NodePort
+
+
+eval $(minikube docker-env)            #Usefull to build the docker image into minikube
+minikube service webserverservice --url   #To check the url and port on which the service is deployed.
 
 
