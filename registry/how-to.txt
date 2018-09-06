@@ -1,0 +1,27 @@
+#Create certificates
+openssl req -x509 -newkey rsa:4096 -keyout certs/domain.key -out certs/domain.crt -days 365 -nodes -subj "/C=CA/ST=QC/L=Montreal/O=None/OU=None/CN=<domain-name>"
+
+#Add domain.crt to docker deamons using the registry
+cp certs/domain.crt /etc/docker/certs.d/<domain-name>:<port>/ca.crt
+
+docker run -d \
+  --restart=always \
+  --name registry \
+  -v `pwd`/certs:/certs \
+  -v /mnt/registry:/var/lib/registry \
+  -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
+  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+  -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+  -p 443:443 \
+  registry:2
+
+sudo docker container start registry
+sudo docker container stop registry && sudo docker container rm -v registry
+
+
+sudo docker tag debian localhost:443/debian
+
+sudo docker push localhost:443/debian
+sudo docker pull localhost:443/debian
+
+curl --insecure -X GET https://localhost:443/v2/_catalog
