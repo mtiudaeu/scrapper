@@ -11,11 +11,11 @@ sudo docker run -p 8888:8888 -t test3    #Testing with present docker 2018-09-03
 
 
 
-kubectl create -f node.yml
+kubectl create -f webserver.yml
 kubectl expose deployment test3-deployment --type=NodePort
 
 
 eval $(minikube docker-env)            #Usefull to build the docker image into minikube
-minikube service webserverservice --url   #To check the url and port on which the service is deployed.
+minikube service webserver-service --url   #To check the url and port on which the service is deployed.
 
 
