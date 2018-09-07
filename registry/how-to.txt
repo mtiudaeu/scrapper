@@ -1,13 +1,13 @@
 #Create certificates
-openssl req -x509 -newkey rsa:4096 -keyout certs/domain.key -out certs/domain.crt -days 365 -nodes -subj "/C=CA/ST=QC/L=Montreal/O=None/OU=None/CN=<domain-name>"
+openssl req -x509 -newkey rsa:4096 -keyout domain.key -out domain.crt -days 365 -nodes -subj "/C=CA/ST=QC/L=Montreal/O=None/OU=None/CN=<domain-name>"
 
 #Add domain.crt to docker deamons using the registry
-cp certs/domain.crt /etc/docker/certs.d/<domain-name>:<port>/ca.crt
+cp domain.crt /etc/docker/certs.d/<domain-name>:443/ca.crt
 
 docker run -d \
   --restart=always \
   --name registry \
-  -v `pwd`/certs:/certs \
+  -v /mnt/certs:/certs \
   -v /mnt/registry:/var/lib/registry \
   -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
