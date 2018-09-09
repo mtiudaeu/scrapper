@@ -28,7 +28,7 @@ class S(BaseHTTPRequestHandler):
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
 def run(server_class=HTTPServer, handler_class=S, port=80):
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(filename="httpd.log",level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     logging.info('Starting httpd...\n')
