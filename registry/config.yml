@@ -1,0 +1,28 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: 0.0.0.0:443
+  tls:
+    certificate: /certs/domain.crt
+    key: /certs/domain.key
+  headers:
+    X-Content-Type-Options: [nosniff]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
+notifications:
+  endpoints:
+    - name: alistener
+      url: http://BUILD_IMAGE_UPDATER_URL
+      timeout: 500ms
+      threshold: 5
+      backoff: 1s

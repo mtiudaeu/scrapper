@@ -4,14 +4,12 @@ openssl req -x509 -newkey rsa:4096 -keyout domain.key -out domain.crt -days 365 
 #Add domain.crt to docker deamons using the registry
 cp domain.crt /etc/docker/certs.d/<domain-name>:443/ca.crt
 
-docker run -d \
+sudo docker run -d \
   --restart=always \
   --name registry \
   -v /mnt/certs:/certs \
   -v /mnt/registry:/var/lib/registry \
-  -e REGISTRY_HTTP_ADDR=0.0.0.0:443 \
-  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
-  -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+  -v `pwd`/config.yml:/etc/docker/registry/config.yml \
   -p 443:443 \
   registry:2
 
@@ -27,3 +25,4 @@ sudo docker pull localhost:443/debian
 curl --insecure -X GET https://localhost:443/v2/_catalog
 
 sudo python3 update-registry.py https://github.com/mtiudaeu/scrapper.git localhost:443
+
