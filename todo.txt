@@ -1,3 +1,8 @@
+2- Check the cron job, -> modify deployment with it
+	(CHECK!)Create role for pod identification
+	Use kubectl instead!!! :)
+	add out of pod authentication for testing
+	Add code to update deployment
 3- update of modified image
 	Add deployment to kubernetes
 	Test with new images

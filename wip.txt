@@ -19,3 +19,20 @@ eval $(minikube docker-env)            #Usefull to build the docker image into m
 minikube service webserver-service --url   #To check the url and port on which the service is deployed.
 
 
+
+
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server>
+
+kubectl get secret regcred --output=yaml
+
+
+
+# Access cluster information with pod
+https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod
+https://github.com/kubernetes/client-go/blob/master/examples/in-cluster-client-configuration/main.go
+
+
+kubectl exec -it <pod-name> -- /bin/bash # execute bash in running docker pod
+
+kubectl delete pod pythonapi-pod
