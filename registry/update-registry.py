@@ -49,7 +49,7 @@ def clone_git_and_update_images():
 
     logging.info("git tag")
     p1 = subprocess.Popen(["git", "tag"], stdout=subprocess.PIPE)
-    p2 = subprocess.Popen(["head", "-1"], stdin=p1.stdout, stdout=subprocess.PIPE)
+    p2 = subprocess.Popen(["tail", "-1"], stdin=p1.stdout, stdout=subprocess.PIPE)
     git_tag = str(p2.communicate()[0]).strip("b'\\n")
 
     subprocess.run(["git", "checkout", "tags/" + git_tag, "-b", "latest_tag"])
