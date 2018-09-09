@@ -6,7 +6,6 @@ Usage::
 """
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
-import subprocess
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -25,7 +24,7 @@ class S(BaseHTTPRequestHandler):
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data.decode('utf-8'))
 
-        subprocess.run(["python3", "update-registry.py", "https://github.com/mtiudaeu/scrapper.git", "localhost:443"])
+        f = open("hook.tmp", "w")
 
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))

@@ -3,6 +3,7 @@
 #FIXME Add clean up of registry
 
 import sys, tempfile, os, shutil, subprocess, json, logging, time
+import os.path
 
 git_url = ""
 registry_url = ""
@@ -90,6 +91,13 @@ if args_len != 3:
 git_url = sys.argv[1]
 registry_url = sys.argv[2]
 
-clone_git_and_update_images()
+cwd = os.getcwd()
 
+while 1 :
+    if os.path.isfile("hook.tmp") :
+        os.remove("hook.tmp")
+        clone_git_and_update_images()
+
+    os.chdir(cwd)
+    time.sleep(5) # sleep 5 sec
 
