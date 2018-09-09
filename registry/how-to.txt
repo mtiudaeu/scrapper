@@ -26,3 +26,4 @@ curl --insecure -X GET https://localhost:443/v2/_catalog
 
 sudo python3 update-registry.py https://github.com/mtiudaeu/scrapper.git localhost:443
 sudo python3 httpd.py
+sudo nohup python3 httpd.py > /dev/null 2>&1 &
