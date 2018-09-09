@@ -25,3 +25,5 @@ sudo docker push localhost:443/debian
 sudo docker pull localhost:443/debian
 
 curl --insecure -X GET https://localhost:443/v2/_catalog
+
+sudo python3 update-registry.py https://github.com/mtiudaeu/scrapper.git localhost:443
