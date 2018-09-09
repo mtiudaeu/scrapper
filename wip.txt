@@ -36,3 +36,5 @@ https://github.com/kubernetes/client-go/blob/master/examples/in-cluster-client-c
 kubectl exec -it <pod-name> -- /bin/bash # execute bash in running docker pod
 
 kubectl delete pod pythonapi-pod
+
+echo -n '1f2d1e2e67df' | base64
