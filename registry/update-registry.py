@@ -90,9 +90,6 @@ if args_len != 3:
 git_url = sys.argv[1]
 registry_url = sys.argv[2]
 
-while 1 :
-    clone_git_and_update_images()
-    logging.info("Sleeping 2 min")
-    time.sleep(120) # sleep 2 min
+clone_git_and_update_images()
 
 
