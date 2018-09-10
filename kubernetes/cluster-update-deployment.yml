@@ -21,13 +21,13 @@ spec:
         - containerPort: 25565
         volumeMounts:
         - name: registry-secret
-          mountPath: "/mnt/registry-secret"
+          mountPath: "/mnt/registry"
           readOnly: true
         - name: web-server-secret
-          mountPath: "/mnt/web-server-secret"
+          mountPath: "/mnt/images/web-server"
           readOnly: true
         - name: cluster-update-secret
-          mountPath: "/mnt/cluster-update-secret"
+          mountPath: "/mnt/images/cluster-update"
           readOnly: true
       volumes:
       - name: registry-secret
