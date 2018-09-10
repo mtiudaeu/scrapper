@@ -18,7 +18,7 @@ def read_secrets_config():
 
     registry_url_path = "/mnt/registry/url"
     if not os.path.isfile(registry_url_path):
-        throw("/mnt/registry/url doesn't exist")
+        raise("/mnt/registry/url doesn't exist")
 
     registry_file = open(registry_url_path, "r")
     secret_data["registry_url"] = registry_file.read()
