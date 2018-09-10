@@ -20,10 +20,22 @@ spec:
         ports:
         - containerPort: 25565
         volumeMounts:
-        - name: registry-url
-          mountPath: "/mnt/registry-url"
+        - name: registry-secret
+          mountPath: "/mnt/registry-secret"
+          readOnly: true
+        - name: web-server-secret
+          mountPath: "/mnt/web-server-secret"
+          readOnly: true
+        - name: cluster-update-secret
+          mountPath: "/mnt/cluster-update-secret"
           readOnly: true
       volumes:
-      - name: registry-url
+      - name: registry-secret
         secret:
-          secretName: secret-registry
+          secretName: registry-secret
+      - name: web-server-secret
+        secret:
+          secretName: web-server-secret
+      - name: cluster-update-secret
+        secret:
+          secretName: cluster-update-secret
