@@ -41,10 +41,15 @@ def read_secrets_config():
 
 def check_and_update_deployment_image(decoded_post_data):
     obj = json.loads(decoded_post_data)
+    if "events" not in obj:
+        return
+
     event_obj = obj["events"][0]
+    logging.info("Checking event id : " + event_obj["id"])
     if event_obj["action"] == "push":
-        if event_obj["target"]["mediaType"] == "application/vnd.docker.distribution.manifest.v2+json":
-            logging.info("Received new image notification")
+        logging.info("Check 1 pass for id : " + event_obj["id"])
+        if "application/vnd.docker.distribution.manifest" in event_obj["target"]["mediaType"]:
+            logging.info("All Check pass. Received new image notification")
             new_image_name = event_obj["target"]["repository"]
             base_image_name = new_image_name.split("_")[0]
 
