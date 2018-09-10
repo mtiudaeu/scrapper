@@ -48,7 +48,7 @@ def check_and_update_deployment_image(decoded_post_data):
     logging.info("Checking event id : " + event_obj["id"])
     if event_obj["action"] == "push":
         logging.info("Check 1 pass for id : " + event_obj["id"])
-        if "application/vnd.docker.distribution.manifest" in event_obj["target"]["mediaType"]:
+        if event_obj["target"]["mediaType"] == "application/vnd.docker.distribution.manifest.v2+json":
             logging.info("All Check pass. Received new image notification")
             new_image_name = event_obj["target"]["repository"]
             base_image_name = new_image_name.split("_")[0]
@@ -81,6 +81,8 @@ class S(BaseHTTPRequestHandler):
         decoded_post_data = post_data.decode('utf-8')
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), decoded_post_data)
+
+        check_and_update_deployment_image(decoded_post_data)
 
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
